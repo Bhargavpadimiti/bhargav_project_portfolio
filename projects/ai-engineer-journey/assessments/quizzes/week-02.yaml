@@ -1,0 +1,103 @@
+title: Week 2 - Python basics (with edge cases)
+questions:
+  - id: w2-true-division
+    topic: numbers
+    q: "What is `type(10 / 2)`?"
+    choices: ["<class 'float'>", "<class 'int'>", "<class 'str'>", "An error"]
+    answer: 0
+    explain: "`/` always returns a float (5.0), even when the division is exact. Use `//` for integer floor division."
+
+  - id: w2-negative-floor
+    topic: numbers
+    q: "What does `-7 // 2` evaluate to?"
+    choices: ["-4", "-3", "-3.5", "3"]
+    answer: 0
+    explain: Floor division rounds towards negative infinity, not towards zero. -3.5 rounds down to -4.
+
+  - id: w2-int-of-float-string
+    topic: types
+    q: "What happens with `int('3.5')`?"
+    choices: ["It raises ValueError", "3", "4", "3.5"]
+    answer: 0
+    explain: "int() only parses whole-number strings. Use int(float('3.5')) if you really mean to truncate, and decide how rounding should work first."
+
+  - id: w2-truthy-string
+    topic: types
+    q: "What is `bool('False')`?"
+    choices: ["True", "False", "An error", "None"]
+    answer: 0
+    explain: Any non-empty string is truthy, even 'False'. Only '' is falsy. This bites people who parse config values.
+
+  - id: w2-string-repeat
+    topic: strings
+    q: "What is `'Hi' * 3`?"
+    choices: ["'HiHiHi'", "'Hi3'", "An error", "['Hi', 'Hi', 'Hi']"]
+    answer: 0
+    explain: Multiplying a string by an integer repeats it.
+
+  - id: w2-fstring-format
+    topic: strings
+    q: "What does `f'{3.14159:.2f}'` produce?"
+    choices: ["'3.14'", "'3.1'", "'3.14159'", "'3'"]
+    answer: 0
+    explain: "`:.2f` formats a number as fixed-point with 2 decimals. It's handy for prices and percentages."
+
+  - id: w2-none-check
+    topic: types
+    q: Which is the correct way to check whether x is None?
+    choices: ["x is None", "x == 'None'", "x = None", "None(x)"]
+    answer: 0
+    explain: None is a single object, so check identity with `is`. `x = None` is assignment, not comparison.
+
+  - id: w2-immutable
+    topic: strings
+    q: "What happens with `s = 'cat'` followed by `s[0] = 'b'`?"
+    choices:
+      - It raises TypeError, because strings can't be changed in place
+      - s becomes 'bat'
+      - A new string 'bat' is created automatically
+      - Nothing happens
+    answer: 0
+    explain: "Strings are immutable. Build a new one instead: s = 'b' + s[1:]."
+
+  - id: w2-bankers-rounding
+    topic: numbers
+    q: "What does `round(2.5)` return?"
+    choices: ["2", "3", "2.5", "An error"]
+    answer: 0
+    explain: Python rounds halves to the nearest even number (banker's rounding), so round(2.5) is 2 and round(3.5) is 4. Money code often needs decimal.Decimal instead.
+
+  - id: w2-input-type
+    topic: types
+    q: What type does input() return when the user types 42?
+    choices: ["str", "int", "float", "It depends on what was typed"]
+    answer: 0
+    explain: input() always returns a string. Convert explicitly, and handle the ValueError when the user types something unexpected.
+
+  - id: w2-float-compare
+    topic: numbers
+    q: Which is the safest way to compare two floats a and b?
+    choices: ["math.isclose(a, b)", "a == b", "a is b", "str(a) == str(b)"]
+    answer: 0
+    explain: Tiny rounding errors make == unreliable for floats. math.isclose allows a small tolerance.
+
+  - id: w2-precedence
+    topic: numbers
+    q: "What is `2 + 3 * 4 ** 2`?"
+    choices: ["50", "400", "196", "1600"]
+    answer: 0
+    explain: "Powers come first (4 ** 2 = 16), then multiplication (3 * 16 = 48), then addition: 50. Use brackets when in doubt."
+
+  - id: w2-strip
+    topic: strings
+    q: "What is `len('  hi  '.strip())`?"
+    choices: ["2", "6", "4", "0"]
+    answer: 0
+    explain: strip() removes whitespace from both ends. Always normalise user input before validating it.
+
+  - id: w2-spaced-review
+    topic: review
+    q: "(Review from week 1) Which command shows what Git sees changed in your working folder?"
+    choices: ["git status", "git push", "git clone", "git init"]
+    answer: 0
+    explain: Each quiz repeats a few earlier questions. Spaced repetition is what makes knowledge stick.
