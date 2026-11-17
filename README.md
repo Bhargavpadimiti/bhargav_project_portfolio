@@ -25,7 +25,7 @@ what you're learning, and the kind of role you're looking for. -->
 <!-- projects:start -->
 | Project | Description | Tech | Status |
 | ------- | ----------- | ---- | ------ |
-| _Your first project will appear here_ | Create one with `make new NAME=my-project` | — | — |
+| [AI Engineer Journey](projects/ai-engineer-journey) | My 9-month, from-scratch path to AI engineer: curriculum, quizzes, tested exercises and a progress tracker | Python | 🚧 In progress |
 <!-- projects:end -->
 
 <sub>Status: ✅ Complete · 🚧 In progress · 🧪 Experimental</sub>

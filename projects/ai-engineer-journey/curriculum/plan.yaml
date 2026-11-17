@@ -1,0 +1,1047 @@
+# The curriculum: single source of truth for the programme.
+# `journey week N` prints a week; `journey report` regenerates the table in curriculum/README.md.
+#
+# Each week has two tracks (from Phase 2 on):
+#   depth - understand it from scratch (math, algorithms, how models really work)
+#   build - ship something real (the AI-engineering skills job postings ask for)
+# plus edge cases to test, and system-design / career items where relevant.
+# Budget: ~10 h/week -> depth ~5 h, build ~4 h, quiz + review + journal ~1 h.
+
+start_date: 2026-12-01
+hours_per_week: 10
+
+phases:
+  - id: 0
+    name: Launch
+    weeks: [1, 1]
+    goal: Tools installed, starting level measured, learning routine running.
+  - id: 1
+    name: Programming foundations
+    weeks: [2, 9]
+    goal: Write, test and ship real Python programs, ending with your first LLM app.
+  - id: 2
+    name: Math & ML from scratch + LLM apps & RAG
+    weeks: [10, 17]
+    goal: Understand how models learn by building them by hand, while shipping a RAG assistant.
+  - id: 3
+    name: Deep learning & transformers + agents & LLMOps
+    weeks: [18, 26]
+    goal: Build a GPT from scratch and ship a production-grade AI agent.
+  - id: 4
+    name: Fine-tuning, serving & system design
+    weeks: [27, 33]
+    goal: Customise and serve models; design AI systems that scale, stay reliable and stay affordable.
+  - id: 5
+    name: Capstone & career launch
+    weeks: [34, 39]
+    goal: Ship an end-to-end AI product, polish the portfolio and land the role.
+
+checkpoints:
+  - week: 13
+    name: 3-month checkpoint
+    goal: Two shipped LLM projects (chatbot + deployed RAG v1), résumé v1 out, applying to bridge roles.
+  - week: 26
+    name: 6-month checkpoint
+    goal: Five portfolio projects, transformer built from scratch, applying to junior/associate AI engineer roles.
+  - week: 39
+    name: Final checkpoint
+    goal: Capstone in production, system-design ready, interviewing for AI engineer roles.
+
+projects:
+  - id: ai-engineer-journey
+    name: AI Engineer Journey
+    aspect: Learning system, measurement and consistency
+    weeks: [1, 39]
+  - id: llm-chatbot
+    name: LLM Chatbot (CLI + API)
+    aspect: Python engineering, HTTP APIs, streaming, testing
+    weeks: [8, 9]
+  - id: rag-assistant
+    name: RAG Assistant
+    aspect: Embeddings, retrieval, evaluation, deployment
+    weeks: [10, 16]
+  - id: ml-from-scratch
+    name: ML from Scratch
+    aspect: Linear algebra, calculus and backprop with no ML libraries
+    weeks: [14, 17]
+  - id: ai-agent
+    name: AI Agent
+    aspect: Tool use, MCP, LangGraph, guardrails, observability
+    weeks: [18, 25]
+  - id: mini-gpt
+    name: Mini-GPT
+    aspect: Tokeniser, attention and a transformer from scratch
+    weeks: [20, 23]
+  - id: fine-tuning-lab
+    name: Fine-tuning Lab
+    aspect: LoRA/QLoRA, evaluation against baselines, model serving
+    weeks: [27, 28]
+  - id: capstone
+    name: Capstone AI Product
+    aspect: End-to-end system design, cloud deployment, cost and reliability
+    weeks: [33, 36]
+
+weeks:
+  # ── Phase 0 · Launch ────────────────────────────────────────────────────
+  - week: 1
+    phase: 0
+    title: Launch - setup, diagnostic, learning how to learn
+    depth:
+      focus: How programs run, and the map of AI
+      topics:
+        - Files, folders, the terminal and what "running a program" means
+        - "AI vs machine learning vs deep learning vs LLMs: how they nest"
+        - What an AI engineer does day to day (see research/job-market-2026.md)
+        - "How to learn: retrieval practice, spacing, building > watching"
+    build:
+      focus: Set up the toolkit and the tracker
+      topics:
+        - Install Python 3.13, VS Code, Git and the GitHub CLI
+        - Clone the portfolio, run `make setup`, install the `journey` tracker
+        - First branch -> commit -> pull request -> merge
+    edge_cases:
+      - "'command not found': PATH problems and how to read the error"
+      - "Windows vs macOS: path separators, activating a virtual environment"
+      - Why the hooks block API keys and commits to main
+    deliverables:
+      - "Diagnostic taken: `journey quiz diagnostic`"
+      - "Week 1 exercises passing: `journey check week-01`"
+      - Skills matrix filled in (assessments/skills-matrix.md, column Dec)
+      - First journal entry merged through a pull request
+    quiz: week-01
+    exercises: week-01
+    resources:
+      - "The Missing Semester, lecture 1 (shell): https://missing.csail.mit.edu/"
+      - "Intro to Large Language Models, Andrej Karpathy (1 h): https://www.youtube.com/watch?v=zjkBMFhNj_g"
+      - "Anki (spaced repetition, free on desktop/Android): https://apps.ankiweb.net"
+
+  # ── Phase 1 · Programming foundations ──────────────────────────────────
+  - week: 2
+    phase: 1
+    title: Python basics - values, types, decisions
+    depth:
+      focus: How Python represents data and makes decisions
+      topics:
+        - Values and types (int, float, str, bool, None), variables, operators
+        - input/print, f-strings, string methods
+        - if/elif/else, comparisons, truthiness
+        - Reading a traceback from the bottom up
+    build:
+      focus: A prompt-builder script
+      topics:
+        - Ask for a topic, audience and tone; print a well-structured LLM prompt
+    edge_cases:
+      - 0.1 + 0.2 != 0.3 (floating point) and math.isclose
+      - "-7 // 2 is -4; round(2.5) is 2"
+      - int('3.5') raises ValueError; input() always returns a string
+      - Empty strings and None are falsy, the string 'False' is truthy
+    deliverables:
+      - "All week-02 tests passing: `journey check week-02`"
+      - prompt_builder.py in your practice folder
+    quiz: week-02
+    exercises: week-02
+    resources:
+      - "CS50's Introduction to Programming with Python, lectures 0-1: https://cs50.harvard.edu/python/"
+      - "Python Tutor (watch code run step by step): https://pythontutor.com"
+
+  - week: 3
+    phase: 1
+    title: Collections and loops
+    depth:
+      focus: Lists, dicts, sets and iteration
+      topics:
+        - lists, tuples, dicts, sets; indexing and slicing
+        - for/while, range, enumerate, zip, comprehensions
+        - Sorting with key=, nested data (lists of dicts = JSON)
+    build:
+      focus: A chat-history manager
+      topics:
+        - Store messages as {"role", "content"} dicts (the shape LLM APIs use)
+        - Print a transcript, estimate tokens, keep only the last N turns
+    edge_cases:
+      - Changing a list while looping over it
+      - "dict['missing'] (KeyError) vs dict.get('missing')"
+      - "Aliasing: b = a shares the same list"
+      - Off-by-one errors in range() and slices; empty collections
+    deliverables:
+      - All week-03 tests passing
+      - chat_history.py with at least 5 of your own tests
+    quiz: week-03
+    exercises: week-03
+    resources:
+      - "CS50P lecture 2 (loops): https://cs50.harvard.edu/python/"
+
+  - week: 4
+    phase: 1
+    title: Functions, errors and testing (holiday week)
+    depth:
+      focus: Functions, exceptions and tests
+      topics:
+        - Parameters, defaults, return values, scope, docstrings, type hints
+        - Modules and imports
+        - try/except/finally, raising errors, custom exceptions
+        - "pytest: write tests first, assert edge cases"
+    build:
+      focus: Refactor and test weeks 2-3
+      topics:
+        - Turn your scripts into functions with tests
+    edge_cases:
+      - Mutable default arguments (def f(x=[]))
+      - "Bare except: hiding real bugs"
+      - Functions that silently return None
+    deliverables:
+      - All week-04 tests passing
+      - Your own test file with 10+ tests, at least 4 of them edge cases
+    quiz: week-04
+    exercises: week-04
+    career:
+      - "Holiday week: if time is short, do the exercises and quiz; reading can slip to week 5"
+    resources:
+      - "CS50P lectures 3 (exceptions) and 5 (unit tests): https://cs50.harvard.edu/python/"
+
+  - week: 5
+    phase: 1
+    title: Files, JSON, HTTP and your first LLM call (catch-up week)
+    depth:
+      focus: Data on disk and on the network
+      topics:
+        - pathlib, reading/writing text, UTF-8
+        - JSON and CSV
+        - "HTTP: requests, responses, methods, status codes, headers"
+        - Virtual environments, pip, environment variables and .env files
+    build:
+      focus: Your first LLM API call
+      topics:
+        - Call an LLM from Python (Claude Haiku 5.5, or a free local model with Ollama)
+        - Print the answer, the tokens used and the cost
+    edge_cases:
+      - File not found; UnicodeDecodeError; malformed JSON
+      - HTTP 401 (bad key), 429 (rate limit), 500 and timeouts
+      - Never commit .env; rotate a key that leaks
+    design:
+      - "Client-server model: what an API is and why it's stateless"
+    deliverables:
+      - All week-05 tests passing
+      - first_llm_call.py that reads its key from .env
+      - Anything unfinished from weeks 2-4
+    quiz: week-05
+    exercises: week-05
+    resources:
+      - "CS50P lectures 4 (libraries) and 6 (file I/O): https://cs50.harvard.edu/python/"
+      - "Claude API docs: https://platform.claude.com/docs"
+      - "Ollama (run open models locally, free): https://ollama.com"
+
+  - week: 6
+    phase: 1
+    title: Classes, types and clean code
+    depth:
+      focus: Objects and readable code
+      topics:
+        - Classes, __init__, methods, dataclasses, composition over inheritance
+        - Type hints (list[str], Optional, TypedDict)
+        - "Style: naming, small functions, ruff"
+        - "Mocking: test code that calls the network without calling it"
+    build:
+      focus: A ChatSession class
+      topics:
+        - Holds the system prompt, history and model settings; send() calls the LLM
+        - Save and load conversations as JSON; tests use a fake LLM
+    edge_cases:
+      - Shared mutable class attributes
+      - Serialising datetimes and other non-JSON types
+      - Circular imports
+    deliverables:
+      - All week-06 tests passing
+      - chat_session.py with mocked tests (no real API calls in tests)
+    quiz: week-06
+    exercises: week-06
+    resources:
+      - "CS50P lecture 8 (OOP): https://cs50.harvard.edu/python/"
+
+  - week: 7
+    phase: 1
+    title: NumPy, pandas and plotting
+    depth:
+      focus: Arrays and tables, the language of ML
+      topics:
+        - NumPy arrays, shapes, dtypes, vectorisation, broadcasting, axis operations
+        - "pandas: load CSV, filter, groupby, missing values"
+        - matplotlib charts; notebooks in Colab or VS Code
+    build:
+      focus: Analyse your own study log
+      topics:
+        - Load progress/log.csv with pandas, chart hours per week and track
+    edge_cases:
+      - "Broadcasting surprises: shape (3,) vs (3, 1)"
+      - NaN spreads through sums; compare floats with np.isclose
+      - Views vs copies; chained-assignment warnings
+    deliverables:
+      - All week-07 tests passing
+      - A notebook with 3 charts of your progress
+    quiz: week-07
+    exercises: week-07
+    resources:
+      - "NumPy for absolute beginners: https://numpy.org/doc/stable/user/absolute_beginners.html"
+      - "Kaggle Learn: Pandas (free): https://www.kaggle.com/learn"
+
+  - week: 8
+    phase: 1
+    title: Production Python - CLIs, logging, async, web APIs
+    depth:
+      focus: How real services are built
+      topics:
+        - argparse/typer CLIs, logging levels, configuration
+        - "async/await: why LLM apps need concurrency"
+        - "FastAPI: routes, Pydantic models, validation, auto-generated docs"
+        - Streaming responses (server-sent events)
+    build:
+      focus: Start Project 1 - LLM Chatbot
+      topics:
+        - Streaming CLI chat built on your ChatSession
+        - A FastAPI /chat endpoint
+    edge_cases:
+      - Blocking calls inside async code
+      - Retries with exponential backoff and jitter; timeouts everywhere
+      - Validation errors (422); Ctrl-C and graceful shutdown
+    design:
+      - "REST API design: resources, status codes, where conversation state lives"
+    deliverables:
+      - All week-08 tests passing
+      - projects/llm-chatbot created with `make new`
+    quiz: week-08
+    exercises: week-08
+    project: llm-chatbot
+    resources:
+      - "FastAPI tutorial: https://fastapi.tiangolo.com/tutorial/"
+
+  - week: 9
+    phase: 1
+    title: Ship Project 1 - LLM Chatbot + Phase 1 exam
+    depth:
+      focus: Consolidate Phase 1
+      topics:
+        - Review weeks 2-8 with your Anki deck
+        - Phase 1 exam
+    build:
+      focus: Finish and publish the chatbot
+      topics:
+        - Two providers behind one interface (Claude + local Ollama)
+        - Memory trimmed to a token budget, retries, cost tracking, config via env
+        - README with a demo GIF and a "failure modes handled" section
+    edge_cases:
+      - Context window overflow on long chats
+      - Provider outage -> fall back to the other provider
+      - Cost runaway -> per-session spending cap
+    career:
+      - Rewrite your LinkedIn headline and résumé summary around "X years in tech + AI engineering"
+      - Pick 2-3 bridge roles from curriculum/career.md and save 10 real postings
+    deliverables:
+      - llm-chatbot merged with green CI
+      - Phase 1 exam at 75%+
+    quiz: exam-phase-1
+    project: llm-chatbot
+
+  # ── Phase 2 · Math & ML from scratch + LLM apps & RAG ───────────────────
+  - week: 10
+    phase: 2
+    title: Vectors and embeddings
+    depth:
+      focus: Linear algebra through code
+      topics:
+        - Vectors, length (norm), dot product, cosine similarity
+        - Matrices, matrix-vector and matrix-matrix multiplication, shapes
+        - Implement in pure Python first, then NumPy
+    build:
+      focus: Semantic search from scratch (Project 2 begins)
+      topics:
+        - What embeddings are; generate them with a free local model
+        - Search your own notes by meaning using your cosine function - no vector database yet
+    edge_cases:
+      - Zero vectors (division by zero in cosine)
+      - Mismatched dimensions; normalised vs raw vectors
+      - Query and documents embedded with different models
+    design:
+      - "Search systems: index time vs query time"
+    deliverables:
+      - All week-10 tests passing
+      - projects/rag-assistant created; semantic search over 50+ notes
+    quiz: week-10
+    exercises: week-10
+    project: rag-assistant
+    resources:
+      - "3Blue1Brown, Essence of Linear Algebra ch. 1-4: https://www.3blue1brown.com/topics/linear-algebra"
+      - "Sentence Transformers: https://www.sbert.net"
+
+  - week: 11
+    phase: 2
+    title: Derivatives, gradients and optimisation
+    depth:
+      focus: Calculus for ML, through code
+      topics:
+        - Derivatives as slopes; partial derivatives; the gradient; the chain rule
+        - Numerical vs analytic derivatives
+        - Gradient descent from scratch in 1-D and 2-D; learning rates
+    build:
+      focus: Document ingestion and chunking
+      topics:
+        - Load PDF, Markdown and web pages; clean the text
+        - Chunk by size, recursively and by heading, with overlap and metadata
+    edge_cases:
+      - Learning rate too high (diverges) or too low (crawls)
+      - Chunks that split sentences, tables or code blocks
+      - Scanned PDFs with no text layer; duplicate documents; huge files
+    deliverables:
+      - All week-11 tests passing
+      - Ingestion pipeline with tests for each chunking strategy
+    quiz: week-11
+    exercises: week-11
+    project: rag-assistant
+    resources:
+      - "3Blue1Brown, Essence of Calculus ch. 1-4: https://www.3blue1brown.com/topics/calculus"
+
+  - week: 12
+    phase: 2
+    title: Probability, softmax and how LLMs pick words
+    depth:
+      focus: Probability for ML
+      topics:
+        - Distributions, expectation, variance, conditional probability, Bayes
+        - Softmax, log-probabilities, cross-entropy
+        - Temperature, top-k and top-p sampling implemented from scratch
+    build:
+      focus: RAG v1 end to end
+      topics:
+        - Retrieve top-k chunks -> grounded prompt -> answer with citations
+        - Swap your hand-made index for a vector store (Chroma or pgvector)
+        - A simple Streamlit UI
+    edge_cases:
+      - Softmax overflow (subtract the max); log(0)
+      - Nothing relevant retrieved -> the assistant must say "I don't know"
+      - Prompt injection hidden inside a document; contradictory sources
+    design:
+      - "RAG architecture: ingestion pipeline vs query pipeline (draw it)"
+    deliverables:
+      - All week-12 tests passing
+      - RAG answers questions about your documents with citations
+    quiz: week-12
+    exercises: week-12
+    project: rag-assistant
+    resources:
+      - "StatQuest (probability and statistics videos): https://www.youtube.com/@statquest"
+      - "Chroma: https://docs.trychroma.com"
+
+  - week: 13
+    phase: 2
+    title: Ship RAG Assistant v1 + 3-month review
+    depth:
+      focus: Consolidate weeks 10-12
+      topics:
+        - Checkpoint exam; re-rate the skills matrix
+    build:
+      focus: Deploy RAG v1
+      topics:
+        - Dockerfile; deploy free on Hugging Face Spaces or Render
+        - 20-question evaluation set with an accuracy score in the README
+        - Architecture diagram and demo GIF
+    edge_cases:
+      - Secrets in deployment settings, not in the image
+      - Cold starts, upload size limits, timeouts on free hosting
+    career:
+      - Apply with two projects (chatbot + RAG); target bridge roles and internal AI initiatives
+      - Publish a LinkedIn post on what you learned building RAG
+      - Refresh the job-market research (tutor task)
+    deliverables:
+      - rag-assistant v1 live with a public URL
+      - Checkpoint exam at 75%+
+      - Résumé v1 sent to at least 10 roles
+    quiz: checkpoint-1
+    project: rag-assistant
+    resources:
+      - "Docker get started: https://docs.docker.com/get-started/"
+      - "Hugging Face Spaces: https://huggingface.co/spaces"
+
+  - week: 14
+    phase: 2
+    title: Linear regression from scratch
+    depth:
+      focus: Your first model, by hand (Project 3 begins)
+      topics:
+        - Features, labels, train/validation/test split
+        - Mean squared error; linear regression by gradient descent in NumPy
+        - Feature scaling, overfitting, L2 regularisation, bias vs variance
+    build:
+      focus: Structured outputs
+      topics:
+        - Get reliable JSON from LLMs with schemas and Pydantic; validate and retry
+        - Extract structured data from messy documents
+    edge_cases:
+      - Data leakage (scaling before splitting)
+      - Outliers, unscaled features, extrapolating outside the data
+      - LLM returns invalid JSON, missing fields or made-up enum values
+    career:
+      - "Coding practice: 1 easy problem a week from here on (arrays, strings, hash maps)"
+    deliverables:
+      - All week-14 tests passing
+      - projects/ml-from-scratch with linear regression matching scikit-learn to 4 decimals
+    quiz: week-14
+    exercises: week-14
+    project: ml-from-scratch
+    resources:
+      - "Machine Learning Specialization, Andrew Ng (audit free): https://www.coursera.org/specializations/machine-learning-introduction"
+      - "NeetCode roadmap: https://neetcode.io/roadmap"
+
+  - week: 15
+    phase: 2
+    title: Classification and evaluation
+    depth:
+      focus: Logistic regression and metrics
+      topics:
+        - Sigmoid, binary cross-entropy, decision thresholds
+        - Accuracy, precision, recall, F1, ROC-AUC, confusion matrix - implement them
+        - Class imbalance
+    build:
+      focus: Evaluating LLM apps
+      topics:
+        - Golden datasets; exact match vs semantic similarity vs LLM-as-judge
+        - "RAG metrics: context precision/recall, faithfulness, answer relevance"
+        - An eval harness for rag-assistant that runs in CI
+    edge_cases:
+      - Precision is 0/0 when nothing is predicted positive
+      - 99% accuracy on 99%-negative data means nothing
+      - "LLM judges: position, verbosity and self-preference bias"
+      - Tiny or leaked eval sets
+    deliverables:
+      - All week-15 tests passing
+      - rag-assistant eval score tracked in the README
+    quiz: week-15
+    exercises: week-15
+    project: rag-assistant
+
+  - week: 16
+    phase: 2
+    title: The classical ML toolkit
+    depth:
+      focus: scikit-learn and when not to use an LLM
+      topics:
+        - Pipelines, cross-validation, decision trees, random forests, gradient boosting
+        - k-means from scratch; PCA intuition
+        - Feature engineering; classical ML vs LLM for a given problem
+    build:
+      focus: Better retrieval
+      topics:
+        - Hybrid search (BM25 + vectors), reranking, metadata filters, query rewriting
+        - Measure every change with your week-15 evals
+    edge_cases:
+      - "k-means: empty clusters, choosing k, initialisation"
+      - Target leakage in features
+      - Acronyms, product codes and IDs (why keyword search still matters)
+    deliverables:
+      - All week-16 tests passing
+      - "rag-assistant v1.1: retrieval improvement shown with numbers"
+    quiz: week-16
+    exercises: week-16
+    project: rag-assistant
+    resources:
+      - "scikit-learn user guide: https://scikit-learn.org/stable/user_guide.html"
+
+  - week: 17
+    phase: 2
+    title: Neural networks and backprop from scratch + Phase 2 exam
+    depth:
+      focus: Build an autograd engine
+      topics:
+        - Neurons, layers, activations, forward pass, loss
+        - Backpropagation as the chain rule; a micrograd-style engine
+        - Train a small MLP; gradient checking
+    build:
+      focus: Ship Project 3 - ML from Scratch
+      topics:
+        - Linear/logistic regression, k-means, metrics and autograd, all tested
+        - Benchmarks against scikit-learn in the README
+    edge_cases:
+      - Vanishing and exploding gradients; dead ReLUs
+      - Forgetting to reset gradients; a node used twice in the graph
+      - Tolerances for numerical gradient checks
+    deliverables:
+      - ml-from-scratch merged with green CI
+      - Phase 2 exam at 75%+
+    quiz: exam-phase-2
+    exercises: week-17
+    project: ml-from-scratch
+    resources:
+      - "Neural Networks: Zero to Hero, lecture 1 (micrograd): https://karpathy.ai/zero-to-hero.html"
+      - "3Blue1Brown, Neural networks: https://www.3blue1brown.com/topics/neural-networks"
+
+  # ── Phase 3 · Deep learning & transformers + agents & LLMOps ────────────
+  - week: 18
+    phase: 3
+    title: PyTorch fundamentals and tool calling
+    depth:
+      focus: PyTorch
+      topics:
+        - Tensors, autograd, nn.Module, DataLoader, the training loop
+        - GPUs on Colab/Kaggle; saving and loading models
+        - Rebuild your week-17 MLP in PyTorch; an MNIST classifier
+    build:
+      focus: Tool calling (Project 5 begins)
+      topics:
+        - Give an LLM tools (calculator, search, database query) and run the tool loop
+    edge_cases:
+      - CPU vs GPU tensor mismatch; shape errors
+      - train() vs eval() mode
+      - LLM calls a tool that doesn't exist, passes bad arguments, or the tool throws
+    deliverables:
+      - All week-18 tests passing
+      - projects/ai-agent with 3 working tools
+    quiz: week-18
+    exercises: week-18
+    project: ai-agent
+    resources:
+      - "PyTorch basics: https://pytorch.org/tutorials/beginner/basics/intro.html"
+      - "Kaggle notebooks (free GPU hours): https://www.kaggle.com/"
+
+  - week: 19
+    phase: 3
+    title: Training networks well and the agent loop
+    depth:
+      focus: Making training work
+      topics:
+        - Initialisation, batch/layer norm, SGD vs Adam, learning-rate schedules
+        - Dropout, weight decay; overfit one batch as a sanity check
+        - Experiment tracking with MLflow
+    build:
+      focus: An agent loop from scratch (no framework)
+      topics:
+        - Plan -> act -> observe; stop conditions and step budgets
+        - Short-term memory and summarisation
+    edge_cases:
+      - NaN loss and how to find its cause
+      - Infinite agent loops; cost runaway; tool output bigger than the context
+      - Non-deterministic runs
+    deliverables:
+      - All week-19 tests passing
+      - Agent that completes a 3-step research task within a step budget
+    quiz: week-19
+    exercises: week-19
+    project: ai-agent
+    resources:
+      - "MLflow: https://mlflow.org/docs/latest/"
+
+  - week: 20
+    phase: 3
+    title: Tokenisation and the Model Context Protocol
+    depth:
+      focus: How text becomes numbers (Project 6 begins)
+      topics:
+        - Characters vs words vs subwords; byte-pair encoding from scratch
+        - Word embeddings and positional information
+    build:
+      focus: MCP servers
+      topics:
+        - Expose your own tools and data as an MCP server; connect it to your agent
+    edge_cases:
+      - Unicode, emoji, whitespace and numbers in tokenisers
+      - Non-English text costs more tokens
+      - "MCP: authentication, untrusted tool descriptions, timeouts"
+    deliverables:
+      - All week-20 tests passing
+      - projects/mini-gpt with a working BPE tokeniser
+      - An MCP server used by your agent
+    quiz: week-20
+    exercises: week-20
+    project: mini-gpt
+    resources:
+      - "minbpe (Karpathy): https://github.com/karpathy/minbpe"
+      - "Model Context Protocol: https://modelcontextprotocol.io"
+
+  - week: 21
+    phase: 3
+    title: Attention and the transformer
+    depth:
+      focus: Self-attention from scratch
+      topics:
+        - Queries, keys, values; scaled dot-product attention; causal masking
+        - Multi-head attention, residual connections, layer norm, the transformer block
+        - Read "Attention Is All You Need" alongside the illustrated guide
+    build:
+      focus: Agent frameworks
+      topics:
+        - Rebuild your agent with LangGraph (state graph, checkpoints, human-in-the-loop)
+        - Compare it with your from-scratch loop
+    edge_cases:
+      - Forgetting the causal mask (the model sees the future)
+      - Why we divide by sqrt(d); numerical stability
+      - "Frameworks: resuming after a crash, partial failures"
+    deliverables:
+      - All week-21 tests passing
+      - Attention module with shape tests
+    quiz: week-21
+    exercises: week-21
+    project: mini-gpt
+    resources:
+      - "The Illustrated Transformer: https://jalammar.github.io/illustrated-transformer/"
+      - "Attention Is All You Need: https://arxiv.org/abs/1706.03762"
+      - "LangGraph: https://github.com/langchain-ai/langgraph"
+
+  - week: 22
+    phase: 3
+    title: Build a mini-GPT, and guardrails
+    depth:
+      focus: Train your own small GPT
+      topics:
+        - Train on a small dataset on a free GPU; sample text; read loss curves
+        - KV cache; scaling-law intuition
+    build:
+      focus: Security and guardrails
+      topics:
+        - Direct and indirect prompt injection, jailbreaks, PII redaction, output validation
+        - OWASP Top 10 for LLM applications; red-team your RAG and agent
+    edge_cases:
+      - Overfitting a tiny dataset; context length limits
+      - Injection through retrieved documents and tool output
+      - Data exfiltration through tool calls or markdown images; excessive agency
+    deliverables:
+      - All week-22 tests passing
+      - A threat model and 10 attack tests for your agent
+    quiz: week-22
+    exercises: week-22
+    project: mini-gpt
+    resources:
+      - "Let's build GPT from scratch (Karpathy): https://karpathy.ai/zero-to-hero.html"
+      - "OWASP GenAI Security Project: https://genai.owasp.org/"
+
+  - week: 23
+    phase: 3
+    title: How LLMs are trained and served
+    depth:
+      focus: The LLM life cycle
+      topics:
+        - Pretraining, instruction tuning, RLHF and DPO
+        - "Inference: decoding, KV cache, batching, quantisation, distillation, mixture of experts"
+        - Reading model cards critically
+    build:
+      focus: Ship Project 6 - Mini-GPT
+      topics:
+        - Tokeniser + model + training + sampling, tested, with a write-up of what you learned
+    edge_cases:
+      - Accuracy lost to quantisation
+      - Reproducibility (seeds, versions)
+      - Benchmark contamination
+    deliverables:
+      - mini-gpt merged with a training-curve chart and samples
+    quiz: week-23
+    project: mini-gpt
+    resources:
+      - "Hugging Face LLM course: https://huggingface.co/learn/llm-course"
+
+  - week: 24
+    phase: 3
+    title: Observability and LLMOps
+    depth:
+      focus: Statistics for experiments
+      topics:
+        - Confidence intervals, A/B tests, significance and sample size
+    build:
+      focus: Tracing and monitoring LLM apps
+      topics:
+        - Tracing with Langfuse or OpenTelemetry; cost and latency dashboards
+        - Prompt versioning; evals as regression tests in CI
+    edge_cases:
+      - Logging personal data by accident
+      - Flaky evals from non-determinism; small samples that "prove" a fake win
+      - p95 latency vs average; caching that returns stale answers
+    deliverables:
+      - All week-24 tests passing
+      - Agent and RAG both traced, with a cost-per-request number
+    quiz: week-24
+    exercises: week-24
+    project: ai-agent
+    resources:
+      - "Langfuse docs: https://langfuse.com/docs"
+
+  - week: 25
+    phase: 3
+    title: Ship Project 5 - AI Agent
+    depth:
+      focus: Review transformers and agents
+      topics:
+        - Spaced review; explain attention and the agent loop out loud, recorded
+    build:
+      focus: A production-grade agent
+      topics:
+        - "Suggested: a job-search copilot that finds roles, matches your skills and drafts tailored bullet points"
+        - MCP tools, RAG over your projects, LangGraph, human approval step, guardrails, evals, tracing, deployed
+    edge_cases:
+      - Cascading tool failures; long-running tasks; approval timeouts
+    deliverables:
+      - ai-agent merged with demo video, eval scores and threat model
+    quiz: week-25
+    project: ai-agent
+
+  - week: 26
+    phase: 3
+    title: 6-month review and job push
+    depth:
+      focus: Checkpoint exam and mock interviews
+      topics:
+        - "Mock interviews with your tutor: LLM concepts, coding, a system-design question"
+        - Re-rate the skills matrix against the job-market list
+    build:
+      focus: Portfolio audit
+      topics:
+        - Every project README answers what, why, how, result in its first screen
+        - Pin your best repos; add the profile README
+    career:
+      - Résumé v2 for junior/associate AI engineer and GenAI developer roles
+      - Apply to 15+ roles; ask for internal AI project work if employed
+      - Refresh the job-market research (tutor task)
+    deliverables:
+      - Checkpoint exam at 75%+
+      - Five portfolio projects public and linked
+    quiz: checkpoint-2
+
+  # ── Phase 4 · Fine-tuning, serving & system design ─────────────────────
+  - week: 27
+    phase: 4
+    title: Fine-tuning with LoRA and QLoRA
+    depth:
+      focus: Customising models (Project 7 begins)
+      topics:
+        - When to prompt vs retrieve vs fine-tune
+        - LoRA as low-rank matrices (back to week 10); preparing a dataset
+        - QLoRA on a free GPU with Hugging Face PEFT and TRL
+    build:
+      focus: Fine-tune a small open model
+      topics:
+        - A narrow task from your domain (classification or extraction)
+        - Compare against a prompting baseline using your eval harness
+    edge_cases:
+      - Catastrophic forgetting; overfitting small datasets
+      - Chat-template mismatch between training and inference
+      - GPU out of memory (batch size, gradient accumulation, checkpointing)
+    deliverables:
+      - All week-27 tests passing
+      - projects/fine-tuning-lab with before/after eval numbers
+    quiz: week-27
+    exercises: week-27
+    project: fine-tuning-lab
+    resources:
+      - "PEFT: https://huggingface.co/docs/peft"
+      - "TRL: https://huggingface.co/docs/trl"
+      - "Colab Pro only if free GPUs run out (optional purchase): https://colab.research.google.com"
+
+  - week: 28
+    phase: 4
+    title: Serving models
+    depth:
+      focus: Inference engineering
+      topics:
+        - vLLM and Ollama; quantised formats (GGUF); batching
+        - Throughput vs latency; GPU memory arithmetic
+    build:
+      focus: Ship Project 7 - Fine-tuning Lab
+      topics:
+        - Publish the model with a model card on the Hugging Face Hub
+        - Serve it behind FastAPI; benchmark cost, latency and quality vs an API model
+    edge_cases:
+      - Cold starts; out-of-memory under concurrent load
+      - Tokeniser or library version mismatch between training and serving
+    deliverables:
+      - fine-tuning-lab merged with a benchmark table
+    quiz: week-28
+    project: fine-tuning-lab
+    resources:
+      - "vLLM docs: https://docs.vllm.ai"
+
+  - week: 29
+    phase: 4
+    title: System design I - scaling and data
+    depth:
+      focus: Fundamentals
+      topics:
+        - Vertical vs horizontal scaling, load balancers, stateless services
+        - Caching and invalidation; SQL vs NoSQL, indexes, transactions
+        - Queues and background workers; CAP and consistency
+    build:
+      focus: Upgrade rag-assistant's architecture
+      topics:
+        - Postgres + pgvector, a Redis cache and a job queue with docker compose
+    edge_cases:
+      - Cache stampede; race conditions; duplicate jobs (idempotency keys)
+      - Database connection limits
+    design:
+      - Back-of-the-envelope estimates (requests per second, storage, tokens per day)
+      - "Design exercise: document Q&A for 10,000 employees"
+    deliverables:
+      - All week-29 tests passing
+      - Design doc 1 with a diagram
+    quiz: week-29
+    exercises: week-29
+    project: rag-assistant
+    resources:
+      - "System Design Primer: https://github.com/donnemartin/system-design-primer"
+
+  - week: 30
+    phase: 4
+    title: System design II - reliability, security and cloud
+    depth:
+      focus: Keeping systems up and safe
+      topics:
+        - Timeouts, retries, circuit breakers, fallbacks, rate limits
+        - Logs, metrics and traces; authentication vs authorisation; secrets management
+        - "Cloud basics on one provider (AWS or Azure): compute, storage, IAM, managed AI services"
+        - Containers and Kubernetes concepts
+    build:
+      focus: CI/CD to the cloud
+      topics:
+        - Build and push a Docker image in GitHub Actions; deploy to a free tier
+    edge_cases:
+      - Retry storms (thundering herd); provider outages and model fallback
+      - Leaked cloud keys; surprise bills (set budgets and alerts first)
+    deliverables:
+      - rag-assistant deploys automatically from main
+    quiz: week-30
+    project: rag-assistant
+
+  - week: 31
+    phase: 4
+    title: ML and LLM system design
+    depth:
+      focus: Designing AI systems
+      topics:
+        - "ML system design: requirements -> data -> model -> serving -> monitoring"
+        - Batch vs real-time inference; drift monitoring; feedback loops
+        - "LLM systems: model gateway and routing, semantic caching, multi-tenant RAG, agent platforms"
+    build:
+      focus: Two written designs
+      topics:
+        - "A support assistant for 1M users"
+        - "Enterprise document Q&A with per-user access control"
+    edge_cases:
+      - One tenant's documents leaking into another's answers
+      - Model deprecations and price changes; rate-limit budgets shared across teams
+    design:
+      - Cost / latency / quality trade-off tables for each design
+    deliverables:
+      - Design docs 2 and 3 reviewed by your tutor
+    quiz: week-31
+    resources:
+      - "Designing Machine Learning Systems, Chip Huyen (optional purchase)"
+
+  - week: 32
+    phase: 4
+    title: Multimodal elective
+    depth:
+      focus: Beyond text (pick one)
+      topics:
+        - "Speech: speech-to-text and text-to-speech for a voice assistant"
+        - "Vision: image embeddings, vision-language models, document OCR"
+        - "Data: a text-to-SQL agent over a real database"
+    build:
+      focus: Add the elective to your agent or RAG
+      topics:
+        - Ship it as a feature with evals
+    edge_cases:
+      - "Audio: accents, background noise, long recordings"
+      - "Vision: low-resolution scans, rotated pages, handwriting"
+      - "SQL: destructive queries (read-only roles), ambiguous questions"
+    deliverables:
+      - Elective feature merged with tests and evals
+    quiz: week-32
+
+  - week: 33
+    phase: 4
+    title: Capstone design
+    depth:
+      focus: Design before code
+      topics:
+        - "Pick a problem from your own industry: your 3+ years of domain knowledge is the edge"
+        - Requirements, design doc, architecture decision records, milestones
+    build:
+      focus: Capstone skeleton
+      topics:
+        - Repository, CI/CD, infrastructure and an empty deployed shell
+    deliverables:
+      - Capstone design doc approved by your tutor
+      - projects/capstone deployed as a skeleton
+    quiz: week-33
+    project: capstone
+
+  # ── Phase 5 · Capstone & career launch ─────────────────────────────────
+  - week: 34
+    phase: 5
+    title: Capstone sprint 1 - core features
+    build:
+      focus: Build the core workflow end to end
+      topics:
+        - Thin vertical slice first, then deepen
+    edge_cases:
+      - Run the edge-case checklist (curriculum/edge-cases.md) for every component
+    deliverables:
+      - Core workflow demo
+    project: capstone
+
+  - week: 35
+    phase: 5
+    title: Capstone sprint 2 - quality
+    build:
+      focus: Evals, guardrails, observability
+      topics:
+        - Eval suite in CI, guardrails, tracing and dashboards
+    deliverables:
+      - Eval score and cost per request published in the README
+    project: capstone
+
+  - week: 36
+    phase: 5
+    title: Capstone sprint 3 - production
+    build:
+      focus: Deploy, load test, write it up
+      topics:
+        - Load test; cost analysis; failure drills
+        - A technical blog post about the capstone
+    deliverables:
+      - Capstone live; blog post published
+    project: capstone
+
+  - week: 37
+    phase: 5
+    title: Interview preparation
+    depth:
+      focus: Interview loops for AI engineers
+      topics:
+        - "ML/LLM concepts: explain each of your projects at three depths"
+        - "Coding: arrays, hashing, two pointers, BFS/DFS (medium level)"
+        - System-design mocks; behavioural stories in STAR format
+    career:
+      - Three mock interviews with your tutor, scored with a rubric
+    deliverables:
+      - Interview notes and story bank in journal/
+    quiz: week-37
+
+  - week: 38
+    phase: 5
+    title: Open source and portfolio polish
+    build:
+      focus: Show you can work in other people's code
+      topics:
+        - One merged contribution to an AI open-source project (docs or a small fix)
+        - Final pass on every README, demo video and pinned repo
+    deliverables:
+      - At least one merged external pull request
+    quiz: week-38
+
+  - week: 39
+    phase: 5
+    title: Final review and next steps
+    depth:
+      focus: Final exam and retrospective
+      topics:
+        - Final exam; skills matrix vs the job market
+        - Write "What I learned in 9 months" for the portfolio
+    career:
+      - Plan the next 6 months (specialisation, certifications only if postings demand them)
+    deliverables:
+      - Final exam at 80%+
+      - Retrospective published
+    quiz: final-exam

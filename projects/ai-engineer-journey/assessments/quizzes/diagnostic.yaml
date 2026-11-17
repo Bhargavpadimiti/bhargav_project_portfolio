@@ -1,0 +1,309 @@
+title: Diagnostic - where are you starting from?
+description: >
+  30 questions across five areas. Answer honestly: choose "I don't know yet"
+  rather than guessing. The goal is an accurate starting point, not a high
+  score. Retake it at the 3- and 6-month checkpoints to see how far you've come.
+
+questions:
+  # ── computing ─────────────────────────────────────────────────────────
+  - id: comp-terminal
+    topic: computing
+    q: What does a terminal (command line) let you do?
+    choices:
+      - Type commands to run programs and manage files
+      - Only browse the internet
+      - Edit images
+      - Design web pages visually
+    answer: 0
+    explain: The terminal is a text interface to your computer. Developers use it to run programs, install tools and use Git.
+
+  - id: comp-git
+    topic: computing
+    q: What is Git mainly used for?
+    choices:
+      - Tracking changes to files over time and collaborating on them
+      - Running Python code faster
+      - Hosting websites
+      - Compressing files
+    answer: 0
+    explain: Git records snapshots (commits) of your files so you can see history, undo mistakes and work in parallel on branches.
+
+  - id: comp-relative-path
+    topic: computing
+    q: "The path `projects/demo/main.py` is..."
+    choices:
+      - A relative path, resolved from the folder you are currently in
+      - An absolute path
+      - A web address
+      - A Python module name
+    answer: 0
+    explain: Absolute paths start at the root (`/` or `C:\`). Relative paths depend on your current folder, which is a common source of "file not found" errors.
+
+  - id: comp-env-var
+    topic: computing
+    q: What is an environment variable commonly used for in applications?
+    choices:
+      - Keeping configuration such as API keys outside the code
+      - Declaring Python variables
+      - Making the CPU faster
+      - Styling web pages
+    answer: 0
+    explain: Secrets and settings live in environment variables (or .env files that Git ignores) so they never end up in your repository.
+
+  - id: comp-pull-request
+    topic: computing
+    q: On GitHub, what is a pull request?
+    choices:
+      - A proposal to merge changes from one branch into another, with review and checks
+      - Downloading a repository
+      - A request for more storage
+      - Deleting a branch
+    answer: 0
+    explain: Pull requests are where changes are reviewed and automated checks (CI) run before code reaches the main branch.
+
+  # ── python ────────────────────────────────────────────────────────────
+  - id: py-floor-div
+    topic: python
+    q: "What does `print(7 // 2)` output in Python?"
+    choices: ["3", "3.5", "4", "An error"]
+    answer: 0
+    explain: "`//` is floor division: it divides and rounds down, so 7 // 2 is 3. Use `/` for 3.5."
+
+  - id: py-type-float
+    topic: python
+    q: "What does `type(3.0)` return?"
+    choices: ["<class 'float'>", "<class 'int'>", "<class 'str'>", "<class 'decimal'>"]
+    answer: 0
+    explain: Any number written with a decimal point is a float, even when the fractional part is zero.
+
+  - id: py-negative-index
+    topic: python
+    q: "Given `nums = [10, 20, 30]`, what is `nums[-1]`?"
+    choices: ["30", "10", "An IndexError", "None"]
+    answer: 0
+    explain: Negative indexes count from the end, so -1 is the last item.
+
+  - id: py-dict-len
+    topic: python
+    q: "What does `len({'a': 1, 'b': 2})` return?"
+    choices: ["2", "4", "1", "An error"]
+    answer: 0
+    explain: The length of a dictionary is its number of keys.
+
+  - id: py-range
+    topic: python
+    q: Which loop prints 0, 1 and 2?
+    choices:
+      - "for i in range(3): print(i)"
+      - "for i in range(1, 3): print(i)"
+      - "for i in range(0, 2): print(i)"
+      - "for i in range(3, 0): print(i)"
+    answer: 0
+    explain: range(stop) counts from 0 up to, but not including, stop.
+
+  - id: py-implicit-none
+    topic: python
+    q: What does a Python function return if it has no `return` statement?
+    choices: ["None", "0", "An empty string", "It raises an error"]
+    answer: 0
+    explain: Functions return None by default, which is a classic source of bugs when you forget to return a value.
+
+  - id: py-try-except
+    topic: python
+    q: "What does `try: ... except ValueError: ...` do?"
+    choices:
+      - Runs the code, and handles a ValueError if one is raised
+      - Prevents any error from happening
+      - Checks the code's types before it runs
+      - Retries the code until it works
+    answer: 0
+    explain: try/except catches the named exception when it happens so the program can recover instead of crashing.
+
+  - id: py-float-equality
+    topic: python
+    q: "What does `0.1 + 0.2 == 0.3` evaluate to?"
+    choices: ["False", "True", "An error", "None"]
+    answer: 0
+    explain: Floats are stored in binary and can't represent 0.1 exactly; the sum is 0.30000000000000004. Compare floats with math.isclose.
+
+  # ── math ──────────────────────────────────────────────────────────────
+  - id: math-dot
+    topic: math
+    q: What is the dot product of [1, 2, 3] and [4, 5, 6]?
+    choices: ["32", "21", "[4, 10, 18]", "90"]
+    answer: 0
+    explain: Multiply matching elements and add them up, 1*4 + 2*5 + 3*6 = 32. Embeddings and attention are built on dot products.
+
+  - id: math-derivative
+    topic: math
+    q: What is the derivative of f(x) = x²?
+    choices: ["2x", "x", "x³/3", "2"]
+    answer: 0
+    explain: The power rule brings the exponent down and lowers it by one. Derivatives tell a model which way to adjust its weights.
+
+  - id: math-probability
+    topic: math
+    q: A fair coin is flipped twice. What is the probability of two heads?
+    choices: ["0.25", "0.5", "0.75", "1"]
+    answer: 0
+    explain: Independent events multiply, 0.5 × 0.5 = 0.25.
+
+  - id: math-matrix-shape
+    topic: math
+    q: A 3×2 matrix multiplied by a 2×4 matrix gives a matrix of which shape?
+    choices: ["3×4", "2×2", "4×3", "It's not possible"]
+    answer: 0
+    explain: The inner sizes must match (2 and 2), and the result takes the outer sizes (3 and 4). Shape errors are the most common bug in ML code.
+
+  - id: math-gradient
+    topic: math
+    q: What does the gradient of a function tell you?
+    choices:
+      - The direction of steepest increase, and how steep it is
+      - The function's maximum value
+      - The area under the curve
+      - The average of the inputs
+    answer: 0
+    explain: Gradient descent steps the opposite way to the gradient to reduce the loss. That is how neural networks learn.
+
+  - id: math-mean
+    topic: math
+    q: What is the mean of [2, 4, 6, 8]?
+    choices: ["5", "4", "6", "20"]
+    answer: 0
+    explain: The total 20 divided by 4 values gives 5.
+
+  - id: math-log
+    topic: math
+    q: What is log(1), in any base?
+    choices: ["0", "1", "e", "Undefined"]
+    answer: 0
+    explain: Any base raised to the power 0 is 1, so log(1) = 0. Log-probabilities and cross-entropy loss rely on logarithms.
+
+  # ── ml ────────────────────────────────────────────────────────────────
+  - id: ml-supervised
+    topic: ml
+    q: In supervised learning, a model learns from...
+    choices:
+      - Examples paired with the correct answers (labels)
+      - Data with no answers at all
+      - Rewards from playing games only
+      - Rules written by hand
+    answer: 0
+    explain: Supervised learning maps inputs to known labels. Unsupervised learning finds structure without labels.
+
+  - id: ml-overfitting
+    topic: ml
+    q: A model scores 99% on its training data but 60% on new data. What is this?
+    choices: ["Overfitting", "Underfitting", "Good generalisation", "Data augmentation"]
+    answer: 0
+    explain: The model memorised the training data instead of learning patterns that generalise. Always measure on data it hasn't seen.
+
+  - id: ml-token
+    topic: ml
+    q: What is a "token" for a large language model?
+    choices:
+      - A chunk of text, often part of a word, that the model reads and writes
+      - A password for the API
+      - One whole sentence
+      - Always exactly one character
+    answer: 0
+    explain: LLMs see text as tokens (roughly 4 characters of English each). Context limits and prices are counted in tokens.
+
+  - id: ml-rag
+    topic: ml
+    q: What does RAG (retrieval-augmented generation) do?
+    choices:
+      - Retrieves relevant documents and gives them to the LLM so its answer is grounded in them
+      - Retrains the model on every question
+      - Generates random answers
+      - Compresses the model
+    answer: 0
+    explain: RAG is the most common pattern in AI-engineering job postings. It lets a model answer from your own data without retraining.
+
+  - id: ml-agent
+    topic: ml
+    q: Which description best fits an "AI agent"?
+    choices:
+      - An LLM that decides which tools to call, in a loop, to reach a goal
+      - Any chatbot
+      - A person who manages AI projects
+      - A type of GPU
+    answer: 0
+    explain: An agent observes, plans and acts by calling tools until its task is done. That loop is what separates an agent from a single chat call.
+
+  - id: ml-hallucination
+    topic: ml
+    q: Why do LLMs sometimes "hallucinate"?
+    choices:
+      - They generate likely-sounding text and can produce confident but false statements
+      - Their servers are overloaded
+      - They are always browsing the internet
+      - Only because users make typos
+    answer: 0
+    explain: LLMs predict plausible next tokens. Without grounding (such as RAG) or verification, plausible can be wrong.
+
+  # ── systems ───────────────────────────────────────────────────────────
+  - id: sys-404
+    topic: systems
+    q: What does the HTTP status code 404 mean?
+    choices: ["Not Found", "Server error", "Success", "Too many requests"]
+    answer: 0
+    explain: 2xx means success, 4xx means a client error (404 not found, 429 rate limited), and 5xx means a server error.
+
+  - id: sys-api
+    topic: systems
+    q: What does an API let two programs do?
+    choices:
+      - Communicate through a defined set of requests and responses
+      - Share the same memory
+      - Run only on the same computer
+      - Avoid using a network
+    answer: 0
+    explain: An API is a contract. Every LLM provider is used through one.
+
+  - id: sys-json
+    topic: systems
+    q: What is JSON?
+    choices:
+      - "A text format for structured data, like {\"name\": \"Ada\"}"
+      - A programming language
+      - A database
+      - A web browser
+    answer: 0
+    explain: JSON is how APIs exchange data, and how you'll ask LLMs for structured output.
+
+  - id: sys-cache
+    topic: systems
+    q: Why put a cache in front of a slow service?
+    choices:
+      - To answer repeated requests faster without redoing the work
+      - To keep data safe permanently
+      - To encrypt network traffic
+      - To replace the database
+    answer: 0
+    explain: Caches trade freshness for speed and cost, a central trade-off in AI system design (for example semantic caching of LLM answers).
+
+feedback:
+  computing:
+    - below: 0.6
+      message: Week 1's setup guide covers this; take the setup steps slowly and ask your tutor when stuck.
+    - message: Solid base. Week 1 setup should be quick.
+  python:
+    - below: 0.5
+      message: Follow Phase 1 exactly as planned. Every exercise matters.
+    - below: 0.85
+      message: "Weeks 2-3 can move faster: do every exercise, skim the reading you already know."
+    - message: Strong. Ask your tutor about compressing weeks 2-4 into two weeks.
+  math:
+    - below: 0.5
+      message: Expected for now. Phase 2 teaches the math through code, with no prior knowledge assumed. Start 3Blue1Brown's linear algebra videos early if you have spare time.
+    - message: Good foundation. Phase 2's depth track will go quickly.
+  ml:
+    - below: 0.5
+      message: Expected. Karpathy's "Intro to LLMs" talk in week 1 gives you the big picture.
+    - message: You know the vocabulary, and the programme will make it hands-on.
+  systems:
+    - below: 0.5
+      message: Covered from week 5 (HTTP) onward, with a dedicated track in Phase 4.
+    - message: Your tech background shows. Lean on it in system-design weeks.

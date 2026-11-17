@@ -1,0 +1,129 @@
+title: Week 1 - Setup, Git and how to learn
+questions:
+  - id: w1-cd
+    topic: terminal
+    q: Which command changes the current folder in the terminal?
+    choices: ["cd", "ls", "pwd", "mkdir"]
+    answer: 0
+    explain: "`cd` changes directory, `ls` (or `dir` on Windows cmd) lists files, `pwd` prints where you are and `mkdir` makes a folder."
+
+  - id: w1-git-status
+    topic: git
+    q: "What does `git status` show?"
+    choices:
+      - Which files changed, and which changes are staged for the next commit
+      - Your GitHub password
+      - Only the commit history graph
+      - Your internet connection status
+    answer: 0
+    explain: Run `git status` constantly. It tells you what Git sees and usually suggests the next command.
+
+  - id: w1-branch
+    topic: git
+    q: Why create a branch before making changes in this repo?
+    choices:
+      - So you can work safely without touching main until the change is reviewed and checked
+      - Branches make code run faster
+      - GitHub requires one branch per file
+      - To delete old commits
+    answer: 0
+    explain: main always works. Branches plus pull requests give you review, CI checks and a clean history, and the pre-commit hook enforces it.
+
+  - id: w1-commit-message
+    topic: git
+    q: Which commit message follows this repo's convention?
+    choices:
+      - "docs(journey): add week 1 reflection"
+      - "updated stuff"
+      - "Fixed."
+      - "WIP!!!"
+    answer: 0
+    explain: "Conventional Commits use `type(scope): summary`. The commit-msg hook rejects anything else, and the history stays readable for future employers."
+
+  - id: w1-venv
+    topic: python
+    q: What is a virtual environment (.venv) for?
+    choices:
+      - Keeping one project's Python packages separate from other projects
+      - Running Python in the cloud
+      - Hiding files from Git
+      - Encrypting your code
+    answer: 0
+    explain: Each project gets its own packages and versions, so installing something for one project can't break another.
+
+  - id: w1-secrets
+    topic: git
+    q: What stops you from committing an API key to this repo by accident?
+    choices:
+      - The gitleaks pre-commit hook, plus keeping keys in .env files that Git ignores
+      - Nothing, so it's fine because the repo is yours
+      - Renaming the file
+      - GitHub deletes keys automatically
+    answer: 0
+    explain: Public repos are scanned by bots within minutes. A leaked key must be revoked (rotated), because deleting the commit isn't enough.
+
+  - id: w1-failing-test
+    topic: learning
+    q: In this programme, what does a failing exercise test mean?
+    choices:
+      - Your function doesn't handle that case yet, and the test name and assert tell you which
+      - The exercise is broken
+      - Python isn't installed
+      - You must start the week again
+    answer: 0
+    explain: Tests are specifications. Read the failing assert and it tells you the input and the expected output, which is usually an edge case.
+
+  - id: w1-retrieval
+    topic: learning
+    q: Which study method gives the best long-term retention?
+    choices:
+      - Testing yourself (retrieval practice), spaced over several days
+      - Re-reading notes many times
+      - Highlighting the important parts
+      - Watching videos at 2x speed
+    answer: 0
+    explain: Retrieval practice and spacing are among the most robust findings in learning research. That's why the programme has weekly quizzes and Anki cards.
+
+  - id: w1-ai-nesting
+    topic: ai
+    q: Which statement is correct?
+    choices:
+      - Deep learning is a subset of machine learning, which is a subset of AI
+      - AI is a subset of deep learning
+      - Machine learning and AI are unrelated
+      - LLMs are not machine learning
+    answer: 0
+    explain: "AI ⊃ machine learning ⊃ deep learning ⊃ large language models. LLMs are deep neural networks (transformers) trained on text."
+
+  - id: w1-ai-engineer
+    topic: ai
+    q: According to 2026 job postings, what does an AI engineer mainly do?
+    choices:
+      - Builds and ships applications on top of models (RAG, agents, evals) into production
+      - Only researches new model architectures
+      - Only labels data
+      - Only writes prompts
+    answer: 0
+    explain: "Postings emphasise LLM apps, RAG, agents, evaluation and production skills (cloud, APIs, monitoring). Research roles are a different job."
+
+  - id: w1-pytest
+    topic: python
+    q: "What does `python -m pytest` do?"
+    choices:
+      - Runs the pytest test runner using this Python interpreter
+      - Installs Python
+      - Creates a new project
+      - Formats your code
+    answer: 0
+    explain: "`python -m <module>` runs a module as a program. It guarantees you're using the Python (and .venv) you think you are."
+
+  - id: w1-gitignore
+    topic: git
+    q: What does .gitignore do?
+    choices:
+      - Lists files Git should not track, such as .venv/ and .env
+      - Deletes files
+      - Ignores errors
+      - Hides files from your editor
+    answer: 0
+    explain: Ignored files stay on your disk but never get committed, which keeps secrets and huge generated folders out of the repo.
