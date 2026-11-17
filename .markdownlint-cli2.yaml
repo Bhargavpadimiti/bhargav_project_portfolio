@@ -1,0 +1,11 @@
+# https://github.com/DavidAnson/markdownlint-cli2
+config:
+  MD013: false         # line length: long lines are fine in prose and tables
+  MD033: false         # inline HTML: allow <p align="center">, <img>, <details>
+  MD041: false         # first line need not be a heading (badges, logos)
+  MD024:
+    siblings_only: true  # repeated headings allowed in different sections
+
+ignores:
+  - "**/node_modules/**"
+  - "**/.venv/**"

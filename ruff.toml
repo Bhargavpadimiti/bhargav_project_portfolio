@@ -1,0 +1,17 @@
+# Shared Ruff config for every Python project in this repo.
+# A project can override it with a [tool.ruff] section in its own pyproject.toml.
+line-length = 100
+target-version = "py311"
+# Lets import sorting recognise each project's own package as first-party.
+src = ["scripts", "projects/*/src", "templates/*/src"]
+
+[lint]
+select = [
+  "E",   # pycodestyle errors
+  "W",   # pycodestyle warnings
+  "F",   # pyflakes
+  "I",   # import sorting
+  "B",   # bugbear: likely bugs
+  "UP",  # pyupgrade: modern syntax
+  "SIM", # simplifications
+]

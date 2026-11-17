@@ -1,0 +1,20 @@
+
+
+# ── Commit message guide (lines starting with # are ignored) ──────────────
+#
+# Format:   <type>(<optional scope>): <short summary in imperative mood>
+#
+# Examples:
+#   feat(weather-cli): add 7-day forecast command
+#   fix(portfolio-site): correct broken link on contact page
+#   docs: explain how to run the tests
+#
+# Types:
+#   feat      new feature              fix       bug fix
+#   docs      documentation only       style     formatting, no logic change
+#   refactor  code change, same behavior   perf  performance improvement
+#   test      add or fix tests         build     dependencies, packaging
+#   ci        GitHub Actions           chore     maintenance, tooling
+#
+# Rules: summary ≤ 72 chars, no trailing period. Use the body (after a blank
+# line) to explain WHAT changed and WHY. Reference issues: "Closes #12".
