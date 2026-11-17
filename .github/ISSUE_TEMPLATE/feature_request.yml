@@ -1,0 +1,25 @@
+name: Feature / task
+description: A new feature, improvement, or project idea
+title: "feat: "
+labels: [enhancement]
+body:
+  - type: input
+    id: project
+    attributes:
+      label: Project
+      description: Which project? Leave blank for a new project idea.
+      placeholder: projects/weather-cli
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What should be possible when this is done, and why does it matter?
+    validations:
+      required: true
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Tasks
+      placeholder: |
+        - [ ] Step one
+        - [ ] Step two

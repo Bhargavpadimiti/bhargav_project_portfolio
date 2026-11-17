@@ -1,0 +1,32 @@
+name: Bug report
+description: Something isn't working as expected
+title: "fix: "
+labels: [bug]
+body:
+  - type: input
+    id: project
+    attributes:
+      label: Project
+      description: Which project is affected?
+      placeholder: projects/weather-cli
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Run `...`
+        2. See error
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error output
+      render: shell

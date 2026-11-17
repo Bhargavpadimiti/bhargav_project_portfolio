@@ -1,0 +1,112 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint & secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
+      - run: pip install pre-commit
+      - name: Run pre-commit on all files
+        run: pre-commit run --all-files --show-diff-on-failure
+        env:
+          SKIP: no-commit-to-branch
+
+  scaffold:
+    name: Scaffolding smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Scaffold and test one project per template
+        run: |
+          for type in python node generic; do
+            python scripts/portfolio.py new "smoke-$type" --type "$type" --no-branch -d "CI smoke test"
+          done
+          python scripts/portfolio.py test projects/smoke-python projects/smoke-node
+
+  detect:
+    name: Find projects to test
+    runs-on: ubuntu-latest
+    outputs:
+      projects: ${{ steps.list.outputs.projects }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - id: list
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          if [ -n "$BASE_REF" ]; then
+            projects=$(python3 scripts/portfolio.py list --json --changed-since "origin/$BASE_REF")
+          else
+            projects=$(python3 scripts/portfolio.py list --json)
+          fi
+          echo "projects=$projects" >> "$GITHUB_OUTPUT"
+          echo "Projects to test: $projects"
+
+  test:
+    name: Test ${{ matrix.project.path }}
+    needs: detect
+    if: needs.detect.outputs.projects != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ${{ fromJSON(needs.detect.outputs.projects) }}
+    steps:
+      - uses: actions/checkout@v7
+      - if: matrix.project.type == 'python'
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - if: matrix.project.type == 'node'
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Install & test
+        env:
+          PROJECT_PATH: ${{ matrix.project.path }}
+        run: python3 scripts/portfolio.py test "$PROJECT_PATH"
+
+  # Single required check for branch protection, whatever ran above.
+  ci-ok:
+    name: CI passed
+    if: always()
+    needs: [lint, scaffold, detect, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check job results
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "Job results: $RESULTS"
+          for r in $RESULTS; do
+            case "$r" in success|skipped) ;; *) exit 1 ;; esac
+          done

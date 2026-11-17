@@ -1,0 +1,32 @@
+# Keeps GitHub Actions and project dependencies up to date with grouped PRs.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: ci
+    groups:
+      actions:
+        patterns: ["*"]
+
+  - package-ecosystem: pip
+    directories: ["/projects/*", "/templates/python"]
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: build
+    groups:
+      python:
+        patterns: ["*"]
+
+  - package-ecosystem: npm
+    directories: ["/projects/*", "/templates/node"]
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: build
+    groups:
+      npm:
+        patterns: ["*"]
