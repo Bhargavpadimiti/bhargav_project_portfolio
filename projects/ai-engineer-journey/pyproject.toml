@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ai-engineer-journey"
+version = "0.1.0"
+description = "My 9-month, from-scratch path to AI engineer: curriculum, quizzes, tested exercises and a progress tracker"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["pyyaml>=6.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+journey = "journey.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/journey"]
+
+[tool.pytest.ini_options]
+# Only the tracker's own tests run in CI. Exercises are run with `journey check`.
+testpaths = ["tests"]
+addopts = "-ra"
