@@ -1,0 +1,19 @@
+{
+  "name": "template-project",
+  "version": "0.1.0",
+  "description": "One-line description of what this project does.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "template-project": "src/cli.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "test": "node --test"
+  }
+}
