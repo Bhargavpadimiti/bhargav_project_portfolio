@@ -1,0 +1,79 @@
+# ---------------------------------------------------------------------------
+# Repository-wide ignore rules. Covers every project under projects/.
+# A project that needs extra rules can add its own .gitignore.
+# ---------------------------------------------------------------------------
+
+# --- Secrets & local config (never commit these) ---------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+secrets/
+credentials.json
+
+# --- Operating system ------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+
+# --- Editors & IDEs ---------------------------------------------------------
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+*.swo
+*.sublime-workspace
+
+# --- Python -----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+.ipynb_checkpoints/
+
+# --- Node / JavaScript ------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+.next/
+.nuxt/
+.cache/
+coverage/
+
+# --- Java / JVM -------------------------------------------------------------
+target/
+*.class
+.gradle/
+out/
+
+# --- Logs & temp files ------------------------------------------------------
+*.log
+logs/
+tmp/
+*.tmp
+
+# --- Large data & model files (use Git LFS or download scripts instead) -----
+*.sqlite
+*.db
+*.parquet
+*.h5
+*.pkl
+*.onnx
+*.pt
